@@ -1,0 +1,98 @@
+.taskCreator-container {
+  //margin: auto;
+  padding: 50px;
+  padding-bottom: 0;
+  border: 1px solid black;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: grid;
+  grid-template-columns: 40% 60%;
+  height: 100vh;
+  .taskCreator-manager {
+    grid-column: 1;
+    //height: min-content;
+    align-self: start;
+    padding: 0;
+    form {
+      display: flex;
+      flex-direction: column;
+      margin: 20px 0;
+
+      input {
+        margin: 10px 0;
+      }
+    }
+    .taskCreator-hourList {
+      .dropdown-menu {
+        height: 100px;
+        overflow-y: scroll;
+        a {
+          font-size: 10px;
+        }
+      }
+    }
+    .taskCreator-savedTasks-container {
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      .taskCreator-savedTasks-activities {
+        display: flex;
+        //flex-direction: column;
+        flex-wrap: wrap;
+
+        .savedTasks-icons {
+          display: grid;
+          width: 50%;
+          grid-template-columns: 80% 10% 10%;
+          padding: 5px 0;
+
+          div {
+            margin: auto;
+          }
+          svg {
+            cursor: pointer;
+          }
+
+          p {
+            text-transform: capitalize;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .taskCreator-daySection {
+    grid-column: 2;
+    //margin: 10px 50px;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0 20px 50px;
+    .taskCreator-daySection-days {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      height: 100%;
+
+      .taskCreator-daySection-activity {
+        display: grid;
+        grid-template-columns: 15% 85%;
+        width: 50%;
+        :nth-child(1) {
+          grid-column: 1;
+        }
+
+        :nth-child(2) {
+          text-transform: capitalize;
+          grid-column: 2;
+        }
+
+        p {
+          margin: 0;
+          padding: 5px 0;
+        }
+      }
+    }
+  }
+}

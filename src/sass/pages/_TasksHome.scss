@@ -1,0 +1,106 @@
+/* .taskHome-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 50px;
+  p {
+    margin: 0;
+  }
+
+  .taskHome-container-calendar {
+    display: flex;
+
+    .taskHome-container-day {
+      margin: 0 10px;
+      width: 150px;
+
+      h2 {
+        font-size: 20px;
+      }
+
+      .taskHome-container-day-hours {
+        border: 1px solid black;
+        padding: 5px;
+
+        p {
+          color: gray;
+          font-size: 12px;
+        }
+      }
+      .taskHome-container-btn {
+        button {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+} */
+
+/* Cuando esta abierto el creador de tareas */
+
+.taskHome-container {
+  padding: 20px;
+  display: flex;
+  p {
+    margin: 0;
+  }
+
+  .taskHome-container-calendar {
+    display: flex;
+    width: 100px;
+
+    .taskHome-container-day {
+      margin: 0 5px;
+      padding: 0;
+      h2 {
+        font-size: 20px;
+      }
+      .taskHome-container-day-hours {
+        border: 1px solid black;
+        padding: 2px;
+        width: 165px;
+        .taskHome-day-activity-container {
+          display: grid;
+          grid-template-columns: 15% 85%;
+          height: 25px;
+          p {
+            grid-column: 1;
+            color: gray;
+            font-size: 12px;
+            margin: auto 0;
+          }
+          .taskHome-day-activity {
+            grid-column: 2;
+            display: grid;
+            grid-template-columns: 75% 25%;
+            width: 100%;
+            p {
+              grid-column: 1;
+              padding-left: 5px;
+              text-transform: capitalize;
+              color: black;
+            }
+            .taskHome-day-activity-icons {
+              grid-column: 2;
+              display: flex;
+              margin: auto 0;
+
+              svg {
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+      .taskHome-container-btn {
+        button {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+.home-apagado {
+  display: none;
+}
