@@ -1,5 +1,11 @@
-import React, { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import InfoContext from "./InfoContext";
+import {
+  guadarEnStorage,
+  obtenerDeStorage,
+  eliminarDeStorage,
+} from "../../utilis/localStorage";
 
 const InfoContextProvider = ({ children }) => {
   const [userName, setUserName] = useState("");
@@ -10,7 +16,17 @@ const InfoContextProvider = ({ children }) => {
   const [optionSelected, setOptionSelected] = useState("Hora");
   const [dayData, setDayData] = useState({});
   const [isHomeOff, setIsHomeOff] = useState(false);
-
+  const [isEmergentWindowButtonDisabled, setIsEmergentWindowButtonDisabled] =
+    useState(false);
+  const [completedTasks, setCompletedTasks] = useState({});
+  const [pendingTasksArray, setPendingTasksArray] = useState({});
+  const [currentUserData, setCurrentUserData] = useState({
+    user: "",
+    tasks: {},
+    pendingTasks: [],
+    savedTasks: [],
+  });
+  const [usersData, setUsersData] = useState([]);
   const hours = [
     "1am",
     "2am",
@@ -35,7 +51,6 @@ const InfoContextProvider = ({ children }) => {
     "9pm",
     "10pm",
     "11pm",
-    "12pm",
   ];
 
   const weekDays = [
@@ -47,20 +62,189 @@ const InfoContextProvider = ({ children }) => {
     "Saturday",
     "Sunday",
   ];
+  const dates = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23, 24, 25, 26, 27, 28, 29, 30,
+  ];
 
-  const saveTask = (day, hour, task) => {
-    const key = `${day}-${hour}`;
-    setTasks((prev) => ({
+  const [seccionActual, setSeccionActual] = useState("inicio-sesion");
+
+  const saveTask = (date, hour, task) => {
+    const key = `${date}-${hour}`;
+
+    const updatedUserTasks = {
+      ...currentUserData.tasks,
+      [key]: task,
+    };
+
+    const updatedUserData = {
+      ...currentUserData,
+      tasks: updatedUserTasks,
+    };
+    setCurrentUserData(updatedUserData);
+
+    //setTasks(updatedTasks);
+
+    setUsersData((prevUsers) =>
+      prevUsers.map((user) =>
+        user.user === currentUserData.user ? updatedUserData : user
+      )
+    );
+
+    //guadarEnStorage("tasks", updatedTasks);
+
+    /*  setPendingTasksArray((prev) => ({
       ...prev,
-      [key]: task /* Guarda una clave que relaciona la tarea con el horario */,
-    }));
+      [key]: task,
+    })); */
   };
 
   /* Esa clave nos sirve para que se guarde la tarea del usuario en el horario escogido */
 
+  const toggleEmergentWindow = () => {
+    setIsHomeOff(!isHomeOff);
+    setIsEmergentWindowButtonDisabled(!isEmergentWindowButtonDisabled);
+  };
+
+  /* Funcion que eliminar tareas  */
+
+  const deleteTask = (singleTask) => {
+    /*  const newObject = { ...tasks };
+    delete newObject[singleTask];
+    setTasks(newObject); */
+
+    const newTasksObject = { ...currentUserData.tasks };
+    delete newTasksObject[singleTask];
+
+    setCurrentUserData((prev) => ({
+      ...prev,
+      tasks: newTasksObject,
+    }));
+  };
+
+  const toggleTaskCompletion = (key) => {
+    setCompletedTasks((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
+  /* const getUserName = (e) => {
+    const valor = e.target.value;
+    guadarEnStorage("userName", valor);
+    setUserName(valor);
+  }; */
+
+  const inputRef = useRef();
+
+  const navigate = useNavigate();
+
+  const handleEnviar = (event) => {
+    /*  event.preventDefault();
+    console.log(event);
+    loginUser();
+    if (userName) {
+      navigate("/home");
+      setSeccionActual("home");
+    } else {
+      inputRef.current.focus();
+    } */
+
+    /* Creacion de nuevos usuarios */
+
+    const foundUser = usersData.find((userObj) => userObj.user === userName);
+
+    if (foundUser) {
+      console.log("Usuario ya existente");
+    } else {
+      const newUser = {
+        user: userName,
+        tasks: {},
+        pendingTasks: [],
+        savedTasks: {},
+      };
+
+      setUsersData((prev) => {
+        const updatedUsers = [...prev, newUser];
+        //guadarEnStorage("usersData", updatedUsers);
+        return updatedUsers;
+      });
+    }
+  };
+
+  /*  const loginUser = () => {
+    const userNameGuardado = obtenerDeStorage("userName");
+    setUserName(userNameGuardado);
+  }; */
+
+  const logoutUser = () => {
+    setUserName(null);
+    //eliminarDeStorage("userName");
+
+    setCurrentUserData({
+      user: "",
+      tasks: {},
+      pendingTasks: [],
+      savedTasks: [],
+    });
+  };
+
+  const deleteAllTasks = () => {
+    //eliminarDeStorage("tasks");
+    //eliminarDeStorage("savedTasks");
+    setTasks({});
+    setSavedTasksArray([]);
+  };
+
+  /*   useEffect(() => {
+    loginUser();
+  }, []);
+ */
+  /* Obtener tareas guardadas en el storage */
+
+  /*  useEffect(() => {
+    const storedTasks = obtenerDeStorage("tasks");
+    if (storedTasks) {
+      setTasks(storedTasks);
+    }
+  }, []); */
+
+  /*   useEffect(() => {
+    console.log(currentUserData);
+  }, [tasks]);
+ */
+  /* Creacion de usuarios */
+
+  /* const createNewUser = (userNameTyped) => {
+    const foundUser = usersData.find(
+      (userObject) => userObject.user === userNameTyped
+    );
+
+    if (foundUser) {
+      console.log("Usuario ya existente");
+    } else {
+      const newUser = {
+        user: userName,
+        tasks: {},
+        pendingTasks: {},
+        savedTasks: {},
+      };
+      setUsersData((prev) => {
+        const updatedUsers = [...prev, newUser];
+      });
+      console.log(usersData.user);
+    }
+  }; */
+
   const values = {
+    /*  createNewUser, */
     userName,
     setUserName,
+    handleEnviar,
+    //loginUser,
+    deleteAllTasks,
+    /*  getUserName, */
+    logoutUser,
     isNameOk,
     setIsNameOk,
     hours,
@@ -78,6 +262,22 @@ const InfoContextProvider = ({ children }) => {
     isHomeOff,
     setIsHomeOff,
     weekDays,
+    dates,
+    isEmergentWindowButtonDisabled,
+    setIsEmergentWindowButtonDisabled,
+    toggleEmergentWindow,
+    deleteTask,
+    seccionActual,
+    setSeccionActual,
+    completedTasks,
+    setCompletedTasks,
+    toggleTaskCompletion,
+    pendingTasksArray,
+    setPendingTasksArray,
+    usersData,
+    setUsersData,
+    currentUserData,
+    setCurrentUserData,
   };
 
   return <InfoContext.Provider value={values}>{children}</InfoContext.Provider>;

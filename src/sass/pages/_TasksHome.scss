@@ -38,7 +38,7 @@
 
 /* Cuando esta abierto el creador de tareas */
 
-.taskHome-container {
+/* .taskHome-container {
   padding: 20px;
   display: flex;
   p {
@@ -99,8 +99,69 @@
       }
     }
   }
-}
 
-.home-apagado {
-  display: none;
+} */
+
+.taskHome-section {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin: 20px 50px 50px;
+
+  .taskHome-weekdays {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+
+    p {
+      margin: 0;
+    }
+
+    .taskHome-weekdays-item {
+      border: 0.5px solid black;
+      width: 150px;
+      background-color: yellow;
+    }
+  }
+
+  .taskHome-calendar-container {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    width: 1050px;
+    margin: auto;
+    .taskHome-calendar-item {
+      display: grid;
+      grid-template-rows: 10% 65% 25%;
+      border: 1px dotted black;
+      height: 150px;
+      width: 150px;
+      padding: 5px;
+
+      p {
+        margin: 0;
+        font-size: 12px;
+      }
+      div {
+        height: fit-content;
+      }
+
+      .taskHome-calendar-item-date {
+        grid-row: 1;
+        text-align: center;
+      }
+      .taskHome-calendar-item-tasks {
+        grid-row: 2;
+      }
+      .taskHome-container-btn {
+        grid-row: 3;
+        display: flex;
+        justify-content: center;
+        align-self: end;
+        button {
+          font-size: 10px;
+        }
+      }
+    }
+  }
 }

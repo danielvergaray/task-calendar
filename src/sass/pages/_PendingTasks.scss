@@ -1,12 +1,39 @@
-.tareas-pendientes {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 50%;
-  backdrop-filter: blur(2px);
-  background-color: rgba(0, 0, 0, 0.4);
+.tareas-pendientes-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin: 50px;
+  .tareas-pendientes-cerrar {
+    text-align: left;
+  }
+  .tareas-pendientes {
+    display: flex;
+    flex-wrap: wrap;
+
+    .tareas-pendientes-dia {
+      border: 1px solid black;
+      margin: 10px;
+      padding: 10px;
+
+      .tareas-pendientes-dia-actividad {
+        display: flex;
+
+        p {
+          color: gray;
+        }
+
+        :nth-child(1) {
+          font-weight: bold;
+          color: black;
+        }
+
+        span {
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+  .tareas-pendientes-vacio {
+    padding-top: 30vh;
+  }
 }

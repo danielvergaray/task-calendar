@@ -1,0 +1,59 @@
+.daytasks-container {
+  position: fixed;
+  top: 2.5%;
+  left: 25%;
+  width: 50%;
+  height: 95%;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  /*  justify-content: center;
+  align-items: center; */
+  pointer-events: all;
+  z-index: 1000;
+
+  h1 {
+    margin: 0;
+    color: yellow;
+  }
+  .daytasks-hours {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100%;
+    margin: 10px 20px;
+    color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .taskCreator-hours-activity {
+      display: grid;
+      grid-template-columns: 15% 75% 10%;
+      width: 50%;
+      :nth-child(1) {
+        grid-column: 1;
+        color: grey;
+      }
+
+      :nth-child(2) {
+        text-transform: capitalize;
+        grid-column: 2;
+      }
+
+      p {
+        margin: 0;
+        padding: 5px 0;
+      }
+
+      .taskCreator-daySection-activity-icons {
+        grid-column: 3;
+        display: flex;
+        cursor: pointer;
+        div {
+          margin: auto;
+        }
+      }
+    }
+  }
+}

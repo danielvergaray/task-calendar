@@ -20,8 +20,8 @@ const DropdownCreator = ({ props }) => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        {props.map((option) => (
-          <Dropdown.Item onClick={() => saveOptionFunction(option)}>
+        {props.map((option, index) => (
+          <Dropdown.Item key={index} onClick={() => saveOptionFunction(option)}>
             {option}
           </Dropdown.Item>
         ))}

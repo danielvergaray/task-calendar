@@ -11,21 +11,17 @@ const Home = () => {
   return (
     <>
       <h1 style={{ textAlign: "center" }}>Bienvenido</h1>
-      <ButtonCreator buttonContext="Registrarse" />
+      <Link to="registro">
+        <ButtonCreator buttonContext="Registrarse" />
+      </Link>
+
       <Link to="inicio-sesion">
         <ButtonCreator buttonContext="Iniciar sesion" />
       </Link>
-      {/*  {!isNameOk ? (
-        <div className="home-inicioSesion">
-    
-          <InicioSesion />
-       
-        </div>
-      ) : (
-       
-        <TasksHome />
-    
-      )} */}
+
+      <Link to="administrador-perfiles">
+        <ButtonCreator buttonContext="Administrador" />
+      </Link>
     </>
   );
 };

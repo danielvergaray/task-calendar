@@ -20,16 +20,19 @@
       input {
         margin: 10px 0;
       }
-    }
-    .taskCreator-hourList {
-      .dropdown-menu {
-        height: 100px;
-        overflow-y: scroll;
-        a {
-          font-size: 10px;
+
+      .taskCreator-hourList {
+        padding-bottom: 10px;
+        .dropdown-menu {
+          height: 100px;
+          overflow-y: scroll;
+          a {
+            font-size: 10px;
+          }
         }
       }
     }
+
     .taskCreator-savedTasks-container {
       margin: 20px 0;
       display: flex;
@@ -54,7 +57,7 @@
 
           p {
             text-transform: capitalize;
-            margin: 0;
+            margin: auto 0;
           }
         }
       }
@@ -65,7 +68,7 @@
     grid-column: 2;
     //margin: 10px 50px;
     width: 100%;
-    height: 50%;
+    height: 55%;
     display: flex;
     flex-direction: column;
     padding: 20px 0 20px 50px;
@@ -77,8 +80,9 @@
 
       .taskCreator-daySection-activity {
         display: grid;
-        grid-template-columns: 15% 85%;
+        grid-template-columns: 15% 70% 15%;
         width: 50%;
+        margin: 0px 5px;
         :nth-child(1) {
           grid-column: 1;
         }
@@ -91,6 +95,14 @@
         p {
           margin: 0;
           padding: 5px 0;
+        }
+        .taskCreator-daySection-activity-icons {
+          grid-column: 3;
+          display: flex;
+          cursor: pointer;
+          div {
+            margin: auto;
+          }
         }
       }
     }

@@ -1,0 +1,45 @@
+.header-container {
+  background-color: grey;
+  height: 100px;
+  padding: 20px;
+
+  p {
+    margin: 0;
+  }
+
+  button {
+    font-size: 10px;
+  }
+  .header-home {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    height: 100%;
+    .header-home-user {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      grid-column: 1;
+    }
+
+    .header-home-botones {
+      grid-column: 2;
+      display: flex;
+      align-items: center;
+
+      .header-pendingTasks,
+      .header-cerrarSesion,
+      .header-eliminar-todo {
+        padding: 0 50px;
+        a {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  /* Para ocultar todo */
+  .rootApagado {
+    display: none !important;
+    background-color: blue;
+  }
+}
