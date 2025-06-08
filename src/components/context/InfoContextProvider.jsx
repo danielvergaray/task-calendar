@@ -10,7 +10,7 @@ import {
 const InfoContextProvider = ({ children }) => {
   const [userName, setUserName] = useState("");
   const [isNameOk, setIsNameOk] = useState(false);
-  const [tasks, setTasks] = useState({});
+  //const [tasks, setTasks] = useState({});
   const [hourSelected, setHourSelected] = useState("");
   const [savedTasksArray, setSavedTasksArray] = useState([]);
   const [optionSelected, setOptionSelected] = useState("Hora");
@@ -22,6 +22,7 @@ const InfoContextProvider = ({ children }) => {
   const [pendingTasksArray, setPendingTasksArray] = useState({});
   const [currentUserData, setCurrentUserData] = useState({
     user: "",
+    id: Number,
     tasks: {},
     pendingTasks: [],
     savedTasks: [],
@@ -161,7 +162,7 @@ const InfoContextProvider = ({ children }) => {
         user: userName,
         tasks: {},
         pendingTasks: [],
-        savedTasks: {},
+        savedTasks: [],
       };
 
       setUsersData((prev) => {
@@ -192,8 +193,15 @@ const InfoContextProvider = ({ children }) => {
   const deleteAllTasks = () => {
     //eliminarDeStorage("tasks");
     //eliminarDeStorage("savedTasks");
-    setTasks({});
-    setSavedTasksArray([]);
+    //setTasks({});
+    //setSavedTasksArray([]);
+
+    setCurrentUserData((prev) => ({
+      ...prev,
+      tasks: {},
+      pendingTasks: [],
+      savedTasks: [],
+    }));
   };
 
   /*   useEffect(() => {
@@ -248,9 +256,9 @@ const InfoContextProvider = ({ children }) => {
     isNameOk,
     setIsNameOk,
     hours,
-    setTasks,
+    //setTasks,
     saveTask,
-    tasks,
+    //tasks,
     hourSelected,
     setHourSelected,
     savedTasksArray,

@@ -36,9 +36,10 @@ const RegistroUsuario = () => {
       } else {
         const newUser = {
           user: userNameTyped,
+          id: crypto.randomUUID(),
           tasks: {},
           pendingTasks: [],
-          savedTasks: {},
+          savedTasks: [],
         };
 
         setUsersData((prev) => [...prev, newUser]);
