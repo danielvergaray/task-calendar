@@ -1,11 +1,9 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import InfoContext from "../context/InfoContext";
 import { Button } from "react-bootstrap";
 
 const PendingTasks = () => {
-  const navigate = useNavigate();
-  const { tasks, toggleEmergentWindow, currentUserData } =
+  const { tasks, toggleEmergentWindow, currentUserData, botonRegresar } =
     useContext(InfoContext);
 
   const tareasAgrupadasPorDia = {};
@@ -24,7 +22,7 @@ const PendingTasks = () => {
       <div className="tareas-pendientes-cerrar">
         <Button
           onClick={() => {
-            navigate(-1);
+            botonRegresar();
             toggleEmergentWindow();
           }}
         >
@@ -54,7 +52,7 @@ const PendingTasks = () => {
           <p>No hay tareas pendientes</p>
           <Button
             onClick={() => {
-              navigate(-1);
+              botonRegresar();
               toggleEmergentWindow();
             }}
           >

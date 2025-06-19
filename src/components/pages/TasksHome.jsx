@@ -7,11 +7,8 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const TasksHome = () => {
   const {
-    userName,
-    tasks,
     currentUserData,
     setDayData,
-    isHomeOff,
     weekDays,
     dates,
     isEmergentWindowButtonDisabled,
@@ -30,19 +27,6 @@ const TasksHome = () => {
     setSeccionActual("");
   };
 
-  /*  const deleteTask = (singleTask) => {
-    const newObject = { ...tasks };
-    delete newObject[singleTask];
-    setTasks(newObject);
-  }; */
-
-  /* const toggleTaskCompletion = (key) => {
-    setCompletedTasks((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
-  }; */
-
   const horaAValor = (hora) => {
     const match = hora.match(/^(\d+)(am|pm|m)$/);
     if (!match) return 0;
@@ -55,15 +39,10 @@ const TasksHome = () => {
     if (sufijo === "pm") return num === 12 ? 12 : num + 12;
   };
 
-  /*  const toggleEmergentWindow = () => {
-    setIsHomeOff(!isHomeOff);
-    setIsEmergentWindowButtonDisabled(!isEmergentWindowButtonDisabled);
-  }; */
   const userTasks = currentUserData.tasks || {};
 
   return (
     <>
-      {/* <div>Hola {userName}</div> */}
       <Header seccionActual="home" />
       <div className=" taskHome-section">
         <div className="taskHome-weekdays">

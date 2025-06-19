@@ -1,0 +1,107 @@
+.administrador-section {
+  margin: 50px;
+
+  .administrador-container {
+    h2 {
+      font-size: 18px;
+    }
+    h3,
+    h4 {
+      font-size: 15px;
+      margin: 0;
+    }
+
+    .administrador-usuarios {
+      display: flex;
+      flex-wrap: wrap;
+
+      .administrador-perfiles-pendingTasks {
+        ul {
+          padding-left: 0;
+          p {
+            padding: 0;
+            margin: 0;
+          }
+        }
+      }
+
+      .administrador-user-hovered {
+        position: relative;
+        display: flex;
+        overflow: hidden;
+        flex-direction: column;
+        border: 1px solid black;
+        background-color: RGB(138, 149, 151, 0.8);
+        padding: 5px;
+        margin: 10px;
+        cursor: pointer;
+
+        .administrador-user-hovered-eliminar {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 2rem;
+          z-index: 2;
+        }
+      }
+
+      .administrador-user {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+        padding: 5px;
+        margin: 10px;
+        cursor: pointer;
+      }
+    }
+
+    .administrador-ventanaEmergente {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 500px;
+      height: 200px;
+      transform: translate(-50%, -50%);
+      background-color: yellow;
+      border: 1px solid black;
+      z-index: 500;
+      padding: 20px;
+
+      .administrador-ventanaEmergente-cerrar {
+        svg {
+          font-size: 25px;
+          cursor: pointer;
+        }
+      }
+
+      .administrador-ventanaEmergente-info {
+        margin: auto;
+        text-align: center;
+        height: 100%;
+        position: relative;
+
+        .administrador-ventanaEmergente-userSelected {
+          text-align: left;
+
+          p {
+            margin: 0;
+          }
+        }
+
+        h2 {
+          margin: 0;
+        }
+        .administrador-ventanaEmergente-botones {
+          button {
+            padding: 5px;
+            background-color: blue;
+            color: white;
+            margin: 10px 5px;
+            border: none;
+          }
+        }
+      }
+    }
+  }
+}

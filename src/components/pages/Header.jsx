@@ -5,18 +5,19 @@ import { Button } from "react-bootstrap";
 
 const Header = ({ seccionActual }) => {
   const {
-    userName,
     logoutUser,
     deleteAllTasks,
     toggleEmergentWindow,
-    isHomeOff,
+
     currentUserData,
   } = useContext(InfoContext);
 
   return (
     <div className="header-container">
       {seccionActual === "inicio-sesion" ? (
-        <div>Iniciar sesion</div>
+        <div className="header-usuarioNoRegistrado">
+          <p>Zona de inicio de sesión</p>
+        </div>
       ) : seccionActual === "home" ? (
         <div className="header-home">
           <div className="header-home-user">
@@ -43,6 +44,10 @@ const Header = ({ seccionActual }) => {
               <Button onClick={() => deleteAllTasks()}>Eliminar todo</Button>
             </div>
           </div>
+        </div>
+      ) : seccionActual === "registro" ? (
+        <div className="header-usuarioNoRegistrado">
+          <p>Zona de registro de usuarios</p>
         </div>
       ) : null}
     </div>

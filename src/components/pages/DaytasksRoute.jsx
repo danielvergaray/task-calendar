@@ -3,18 +3,12 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import InfoContext from "../context/InfoContext";
 import { FaRegSquare, FaRegCheckSquare } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
+import { Button } from "react-bootstrap";
 
 const DaytasksRoute = () => {
   const { homeId } = useParams();
-  const {
-    hours,
-    tasks,
-    setIsHomeOff,
-    isHomeOff,
-    toggleEmergentWindow,
-    deleteTask,
-    currentUserData,
-  } = useContext(InfoContext);
+  const { hours, toggleEmergentWindow, deleteTask, currentUserData } =
+    useContext(InfoContext);
   const navigate = useNavigate();
 
   const userTasks = currentUserData.tasks || {};
@@ -23,7 +17,7 @@ const DaytasksRoute = () => {
     <div className="daytasks-container">
       {/* <button onClick={() => navigate(-1)}>Cerrar</button> */}
       <Link to="/home">
-        <button onClick={toggleEmergentWindow}> Cerrar</button>
+        <Button onClick={toggleEmergentWindow}> Cerrar</Button>
       </Link>
       <h1>{homeId}</h1>
       <div className="daytasks-hours">

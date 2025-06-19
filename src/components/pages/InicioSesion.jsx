@@ -3,18 +3,12 @@ import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 import ButtonCreator from "../Reutilizables/ButtonCreator";
 import InfoContext from "../context/InfoContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const InicioSesion = () => {
-  const {
-    setCurrentUserData,
-    setUserName,
-    usersData,
-    setUsersData,
-    setSeccionActual,
-    /*     getUserName, */
-    loginUser,
-    /*  handleEnviar, */
-  } = useContext(InfoContext);
+  const { setCurrentUserData, botonRegresar, usersData, setSeccionActual } =
+    useContext(InfoContext);
 
   const [nameTyped, setNameTyped] = useState("");
 
@@ -54,33 +48,45 @@ const InicioSesion = () => {
     } else {
       console.log("Usuario NO existente");
 
-      //setUsersData((prev) => [...prev, userData]);
+      toast.error("Usuario no registrado", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
-
-    /* if (userName) {
-      navigate("/home");
-      setSeccionActual("home");
-    } else {
-      inputRef.current.focus();
-    } */
   };
 
   return (
     <>
       <Header seccionActual="inicio-sesion" />
-      <div className="home-inicioSesion-container">
-        <form onSubmit={handleIniciarSesion}>
-          <input
-            onChange={(e) => getUserName(e)}
-            ref={inputRef}
-            placeholder="Ingresa tu nombre"
-            type="text"
-          />
-        </form>
-        <div onClick={handleIniciarSesion}>
-          <ButtonCreator buttonContext={textoBotonInicio} />
+      <div className="inicioSesion-section">
+        <div className="inicioSesion">
+          <h1>Ingresa tu nombre de usuario</h1>
+          <form onSubmit={handleIniciarSesion}>
+            <input
+              onChange={(e) => getUserName(e)}
+              ref={inputRef}
+              placeholder="Ingresa tu nombre"
+              type="text"
+            />
+          </form>
+          <div className="inicioSesion-botones">
+            <div onClick={handleIniciarSesion}>
+              <ButtonCreator buttonContext={textoBotonInicio} />
+            </div>
+
+            <div onClick={botonRegresar}>
+              <ButtonCreator buttonContext="Regresar" />
+            </div>
+          </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };

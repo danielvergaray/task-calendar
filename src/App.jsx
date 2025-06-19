@@ -12,6 +12,7 @@ function App() {
       {/*  <Header /> */}
       <Outlet />
       {/* <Footer /> */}
+      {/* <ToastifyNotifications /> */}
     </InfoContextProvider>
   );
 }

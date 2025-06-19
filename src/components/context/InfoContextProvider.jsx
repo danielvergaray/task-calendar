@@ -8,18 +8,15 @@ import {
 } from "../../utilis/localStorage";
 
 const InfoContextProvider = ({ children }) => {
-  const [userName, setUserName] = useState("");
   const [isNameOk, setIsNameOk] = useState(false);
-  //const [tasks, setTasks] = useState({});
   const [hourSelected, setHourSelected] = useState("");
-  const [savedTasksArray, setSavedTasksArray] = useState([]);
   const [optionSelected, setOptionSelected] = useState("Hora");
   const [dayData, setDayData] = useState({});
   const [isHomeOff, setIsHomeOff] = useState(false);
   const [isEmergentWindowButtonDisabled, setIsEmergentWindowButtonDisabled] =
     useState(false);
   const [completedTasks, setCompletedTasks] = useState({});
-  const [pendingTasksArray, setPendingTasksArray] = useState({});
+
   const [currentUserData, setCurrentUserData] = useState({
     user: "",
     id: Number,
@@ -28,6 +25,13 @@ const InfoContextProvider = ({ children }) => {
     savedTasks: [],
   });
   const [usersData, setUsersData] = useState([]);
+  const [selectedId, setSelectedId] = useState(null);
+  const [selectedUserToDelete, setSelectedUserToDelete] = useState({
+    user: "",
+    id: Number,
+  });
+  const [showDeleteWindow, setShowDeleteWindow] = useState(false);
+
   const hours = [
     "1am",
     "2am",
@@ -88,7 +92,7 @@ const InfoContextProvider = ({ children }) => {
 
     setUsersData((prevUsers) =>
       prevUsers.map((user) =>
-        user.user === currentUserData.user ? updatedUserData : user
+        user.id === currentUserData.id ? updatedUserData : user
       )
     );
 
@@ -121,6 +125,14 @@ const InfoContextProvider = ({ children }) => {
       ...prev,
       tasks: newTasksObject,
     }));
+
+    setUsersData((prevUsers) =>
+      prevUsers.map((user) =>
+        user.id === currentUserData.id
+          ? { ...user, tasks: newTasksObject }
+          : user
+      )
+    );
   };
 
   const toggleTaskCompletion = (key) => {
@@ -138,8 +150,6 @@ const InfoContextProvider = ({ children }) => {
 
   const inputRef = useRef();
 
-  const navigate = useNavigate();
-
   const handleEnviar = (event) => {
     /*  event.preventDefault();
     console.log(event);
@@ -153,13 +163,15 @@ const InfoContextProvider = ({ children }) => {
 
     /* Creacion de nuevos usuarios */
 
-    const foundUser = usersData.find((userObj) => userObj.user === userName);
+    const foundUser = usersData.find(
+      (userObj) => userObj.user === usersData.user
+    );
 
     if (foundUser) {
       console.log("Usuario ya existente");
     } else {
       const newUser = {
-        user: userName,
+        user: usersData.user,
         tasks: {},
         pendingTasks: [],
         savedTasks: [],
@@ -179,7 +191,7 @@ const InfoContextProvider = ({ children }) => {
   }; */
 
   const logoutUser = () => {
-    setUserName(null);
+    //setUserName(null);
     //eliminarDeStorage("userName");
 
     setCurrentUserData({
@@ -202,11 +214,29 @@ const InfoContextProvider = ({ children }) => {
       pendingTasks: [],
       savedTasks: [],
     }));
+
+    setUsersData((allUsers) =>
+      allUsers.map((eachUser) =>
+        eachUser.id === selectedId
+          ? { ...eachUser, tasks: {}, pendingTasks: [], savedTasks: [] }
+          : eachUser
+      )
+    );
+
+    setShowDeleteWindow(null);
   };
 
-  /*   useEffect(() => {
-    loginUser();
-  }, []);
+  const deleteUser = () => {
+    const newUsersDataArray = usersData.filter(
+      (user) => user.id !== selectedId
+    );
+
+    setUsersData(newUsersDataArray);
+  };
+
+  /* useEffect(() => {
+    console.log(usersData);
+  }, [usersData]);
  */
   /* Obtener tareas guardadas en el storage */
 
@@ -244,25 +274,24 @@ const InfoContextProvider = ({ children }) => {
     }
   }; */
 
+  /* Boton regresar */
+  const navigate = useNavigate();
+
+  const botonRegresar = () => {
+    navigate(-1);
+  };
+
   const values = {
-    /*  createNewUser, */
-    userName,
-    setUserName,
+    botonRegresar,
     handleEnviar,
-    //loginUser,
     deleteAllTasks,
-    /*  getUserName, */
     logoutUser,
     isNameOk,
     setIsNameOk,
     hours,
-    //setTasks,
     saveTask,
-    //tasks,
     hourSelected,
     setHourSelected,
-    savedTasksArray,
-    setSavedTasksArray,
     optionSelected,
     setOptionSelected,
     dayData,
@@ -280,12 +309,17 @@ const InfoContextProvider = ({ children }) => {
     completedTasks,
     setCompletedTasks,
     toggleTaskCompletion,
-    pendingTasksArray,
-    setPendingTasksArray,
     usersData,
     setUsersData,
     currentUserData,
     setCurrentUserData,
+    selectedId,
+    setSelectedId,
+    deleteUser,
+    selectedUserToDelete,
+    setSelectedUserToDelete,
+    showDeleteWindow,
+    setShowDeleteWindow,
   };
 
   return <InfoContext.Provider value={values}>{children}</InfoContext.Provider>;

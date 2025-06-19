@@ -3,6 +3,18 @@
   height: 100px;
   padding: 20px;
 
+  .header-usuarioNoRegistrado {
+    display: flex;
+    align-items: center;
+    height: fit-content;
+    margin: auto;
+    height: 60px;
+
+    p {
+      color: white;
+    }
+  }
+
   p {
     margin: 0;
   }

@@ -1,5 +1,4 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import InfoContext from "../context/InfoContext";
 import ButtonCreator from "./ButtonCreator";
 import DropdownCreator from "./DropdownCreator";
@@ -14,7 +13,7 @@ const TaskCreator = () => {
     tasks,
     hourSelected,
     savedTasksArray,
-    setSavedTasksArray,
+    botonRegresar,
     setOptionSelected,
     setHourSelected,
     dayData,
@@ -22,7 +21,8 @@ const TaskCreator = () => {
     deleteTask,
     toggleTaskCompletion,
     completedTasks,
-    setDayData,
+    setUsersData,
+    usersData,
     currentUserData,
     setCurrentUserData,
     /* setIsEmergentWindowButtonDisabled,
@@ -34,7 +34,7 @@ const TaskCreator = () => {
 
   const inputRef = useRef();
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const addTaskFunction = (event) => {
     event.preventDefault();
@@ -45,7 +45,8 @@ const TaskCreator = () => {
       setHourSelected("");
       //setPendingTasksArray();
 
-      let busqueda = savedTasksArray.includes(taskTyped);
+      //let busqueda = savedTasksArray.includes(taskTyped);
+      let busqueda = currentUserData.savedTasks.includes(taskTyped);
 
       if (!busqueda) {
         //setSavedTasksArray((prev) => [...prev, taskTyped]);
@@ -60,6 +61,14 @@ const TaskCreator = () => {
           savedTasks: updatedSavedTasks,
         }));
 
+        setUsersData((prevUsers) =>
+          prevUsers.map((user) =>
+            user.id === currentUserData.id
+              ? { ...user, savedTasks: updatedSavedTasks }
+              : user
+          )
+        );
+
         //guadarEnStorage("savedTasks", updatedSavedTasks);
       } else {
         //setSavedTasksArray((prev) => [...prev]);
@@ -70,6 +79,14 @@ const TaskCreator = () => {
           ...prev,
           savedTasks: updatedSavedTasks,
         }));
+
+        setUsersData((prevUsers) =>
+          prevUsers.map((user) =>
+            user.id === currentUserData.id
+              ? { ...user, savedTasks: updatedSavedTasks }
+              : user
+          )
+        );
         //guadarEnStorage("savedTasks", updatedSavedTasks);
       }
     } else {
@@ -106,7 +123,6 @@ const TaskCreator = () => {
   };
 
   const handleCloseBottom = () => {
-    navigate(-1);
     //setIsEmergentWindowButtonDisabled(!isEmergentWindowButtonDisabled);
   };
 
@@ -142,7 +158,7 @@ const TaskCreator = () => {
   return (
     <div className="taskCreator-container">
       <div className="taskCreator-manager">
-        <button onClick={() => handleCloseBottom()}>Atrás</button>
+        <button onClick={botonRegresar}>Atrás</button>
         <div className="taskCreator-title">
           <h1>Task Manager</h1>
           <p>Editando el dia {dayData.date}</p>
